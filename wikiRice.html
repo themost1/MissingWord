@@ -8,17 +8,15 @@
 
 <p id="wank"></p>
 
-<form method="get" target="wank">
-<input type="text" id="guess" name = "guess">
+<form method="POST" target="wank" onSubmit ="JavaScript:check()">
+<input type="text" id="guess" name = "hue"/>
 </form>
 
-<script id = "checksubmission">
-	var nameValue = document.getElementById("guess").value;
-	
-
-	
-	document.getElementById("wank").innerHTML = 1+1
-	document.getElementById("wank").innerHTML = nameValue
+<script type = "text/javascript" id = "checksubmission">
+	function check(){
+		var nameValue = document.getElementById("guess").value;
+		document.getElementById("wank").innerHTML = nameValue
+	}
 </script>
 
 
