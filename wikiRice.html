@@ -2,11 +2,38 @@
 <html>
 <body id="bod">
 
+<iframe src="www.wikipedia.org/wiki/Special:Random" name="targetFrame" allowTransparency="false" scrolling="no" frameborder="0" >
+    
+    </iframe>
+
+
+<form>
+<input type="text" id="guess" name = "guess">
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <p id="wank"> </p>
 
 <script id="definitions">
 function drawPage(){
-	return document.getElementById("wank").innerHTML = www.wikipedia.org/wiki/Special:Random
+	return document.getElementById("wank").innerHTML = 1+2
+
+	
 }
 
 </script>
@@ -14,6 +41,15 @@ function drawPage(){
 <script id="runtime">
 drawPage()
 </script>
+
+
+<script id = "check submission">
+	if (guess == "herman"){
+		document.getElementById("wank").innerHTML = 911
+	}
+</script>
+
+
 
 
 </body>
