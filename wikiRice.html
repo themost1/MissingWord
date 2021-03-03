@@ -11,11 +11,6 @@
 <script>
 	//Create a new object to interact with the server
 	var xhr = new XMLHttpRequest();
-	//var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&forman=json&generator=search&prop=revisions&rvprop=text"		This is the base command
-	//var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=search&gsrnamespace=0&gsrlimit=5&gsrsearch='New_England_Patriots&prop=revisions&rvprop=content";
-
-	//This gives html or maybe wikitext of the specified page (pet_door)
-	//var url = "https://en.wikipedia.org/w/api.php?origin=*&action=parse&format=json&page=Pet_door&prop=text&formatversion=2"
 
 	//This extracts text, is a WIP... currently grabs the first-ish 1200 chars in plain text. Not sure how to grab later
 	var url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&titles=Animal&formatversion=2&excharacters=1200&exlimit=50&explaintext=1"
