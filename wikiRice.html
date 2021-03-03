@@ -40,11 +40,19 @@
 		        console.log(data.query.pages[i].title);
 		    }
 
-		   	var outputInscope = data.query.pages[0].extract
+		   	var content = data.query.pages[0].extract
+
+		   	usePageContent(content)
 
 		}
 		// Send request to the server asynchronously
 		xhr.send();
+
+		function usePageContent(content){
+
+		}
+
+
 </script>
 
 <form id = "myForm">
