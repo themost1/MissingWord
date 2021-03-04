@@ -45,24 +45,29 @@
 	xhr.send();
 
 
-	function processContent(content){
-		text = new String(content)
-		let validSentenceEnds = []
+	function getEnds(spaced){
+	
+		let ends = []
 
-		let spaced = text.split(" ")
 		for (var i = 0; i < spaced.length; i++) {
 			item = spaced[i]
 			if (item.charAt(item.length-1) == "."){
 				if (item.length > 3 || item.charAt(0) == item.charAt(0).toLowerCase() ){
-					validSentenceEnds[validSentenceEnds.length] = i
-					//console.log(item)
+					ends[ends.length] = i
 				}
 			}
 		}
+		return ends
 
-		getSentenceByIndex(spaced, validSentenceEnds, 3)
-		console.log(chooseBlank(spaced, validSentenceEnds))
+	}
 
+	function processContent(content){
+		text = new String(content)
+		var spaced = text.split(" ")
+		var ends = getEnds(spaced)
+		var data = generateWikiBlank(spaced,ends)
+		document.getElementById("spank").innerHTML = data[0];
+		document.getElementById("spank").name = data[1]
 
 	}
 
@@ -81,7 +86,7 @@
 		for (var i = start+1; i <= ends[index]; i++){
 			passage = passage + " " + spaced[i]
 		}
-		document.getElementById("spank").innerHTML = passage;
+		document.getElementById("wank").innerHTML = passage;
 		return passage
 	} 
 
@@ -91,6 +96,8 @@
 				return true 
 			}
 		}
+
+		//NEEDS TO TRIM PUNCTUATION\
 		return false
 	}
 
@@ -100,17 +107,62 @@
 
 		for (var k = 0; k < spaced.length; k++) {
 			if (possibleBlank(spaced[k])) {
-				possibleBlanks[possibleBlanks.length] = spaced[k]
+				possibleBlanks[possibleBlanks.length] = k
 			}
 		}
 
-		return possibleBlanks
+		return possibleBlanks // The index in spaced
 	}
 
 	function chooseBlank(spaced, ends) {
 		var candidates = getPossibleBlanks(spaced, ends)
 		var rngNum = Math.floor(Math.random()*candidates.length)
-		return [candidates[rngNum], rngNum]
+
+		//
+		return candidates[rngNum]
+	}
+
+
+	function generateWikiBlank(spaced, ends){
+		var blankId = chooseBlank(spaced, ends)
+		var blankWord = spaced[blankId]
+		console.log(blankWord)
+		var passage = ""
+		
+		var nextEnd = 0
+		var flag = true
+		for (var i = 0; i < ends.length; i++){
+			if (ends[i] > blankId && flag){
+				nextEnd = i // this is reset to ends[i] after lastEnd is set
+				flag = false
+			}
+		}
+
+		var lastEnd
+		if (nextEnd == 0) {
+			lastEnd = -1
+		} else {
+			lastEnd = ends[nextEnd-1]
+		}
+		nextEnd = ends[nextEnd]
+
+		console.log(lastEnd)
+		console.log(blankId)
+		console.log(nextEnd)
+
+		for (var i = lastEnd+1; i <= nextEnd; i++){
+			if (i == blankId){
+				passage = passage + " " + "____"
+			} else {
+				passage = passage + " " + spaced[i]
+			}
+		}
+
+
+		//console.log(passage);
+		//console.log(blankWord)
+		return [passage, blankWord]
+
 	}
 
 
@@ -128,7 +180,14 @@
     	JavaScript:check();
   	} );
 
-	function check(){
+  	function check(){
+  		if (document.getElementById("guess").value == document.getElementById("spank").name){
+			document.getElementById("wank").innerHTML = "You did it!";
+  		}
+		document.getElementById("guess").value = " ";
+	}
+
+	function testForm(){
 		var nameValue = document.getElementById("guess").value;
 		document.getElementById("wank").innerHTML = nameValue;
 		document.getElementById("guess").value = " ";
