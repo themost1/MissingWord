@@ -4,7 +4,7 @@ var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&
 var url = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&generator=random&grnnamespace=0&prop=revisions%7Cimages&rvprop=title&grnlimit=10"
 
 xhr.open('GET',url,true)
-xhr.onload = function(){
+xhr.onload = function() {
 	var data = JSON.parse(this.response);
 	for (var key in data.query.pages) {
 		temp = data.query.pages[key].title
@@ -16,7 +16,7 @@ xhr.onload = function(){
 }
 xhr.send();
 
-function getThatPage(title){
+function getThatPage(title) {
 	//Create a new object to interact with the server
 	var xhr = new XMLHttpRequest();
 
@@ -44,7 +44,7 @@ function getThatPage(title){
 	xhr.send();
 }
 
-function processContent(content){
+function processContent(content) {
 	text = new String(content)
 
 	// Not Internet Explorer compatible
@@ -58,7 +58,7 @@ function processContent(content){
 	document.getElementById("spank").name = data[1]
 }
 
-function generateWikiBlank(spaced, ends){
+function generateWikiBlank(spaced, ends) {
 	var blankId = chooseBlank(spaced, ends)
 	var answer = spaced[blankId]
 	console.log(answer)
@@ -99,7 +99,7 @@ function generateWikiBlank(spaced, ends){
 	return [question, answer, passage]
 }
 
-function getEnds(spaced){
+function getEnds(spaced) {
 	let ends = []
 
 	for (var i = 0; i < spaced.length; i++) {
@@ -113,7 +113,7 @@ function getEnds(spaced){
 	return ends
 }
 
-function getSentenceByIndex(spaced, ends, index){
+function getSentenceByIndex(spaced, ends, index) {
 	var start = 0
 	if (index > 0){
 		start = ends[index-1]+1
@@ -129,7 +129,7 @@ function getSentenceByIndex(spaced, ends, index){
 	return passage
 } 
 
-function possibleBlank(item){
+function possibleBlank(item) {
 	if ((item.indexOf("ing") == item.length - 3 && item.length > 3)|| (item.indexOf("ed") == item.length-2 && item.length > 2)){
 		if (item.charAt(0) == item.charAt(0).toLowerCase()){
 			var flag = true
@@ -163,7 +163,7 @@ function getPossibleBlanks (spaced, ends) {
 
 function chooseBlank(spaced, ends) {
 	var candidates = getPossibleBlanks(spaced, ends)
-	var rngNum = Math.floor(Math.random()*candidates.length)
+	var rngNum = Math.floor(Math.random() * candidates.length)
 
 	return candidates[rngNum]
 }
