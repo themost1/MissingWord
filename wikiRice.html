@@ -91,9 +91,19 @@
 	} 
 
 	function possibleBlank(item){
-		if (item.indexOf("ing") > -1 || item.indexOf("ed") > -1 ){
+		if ((item.indexOf("ing") == item.length - 3 && item.length > 3)|| (item.indexOf("ed") == item.length-2 && item.length > 2)){
 			if (item.charAt(0) == item.charAt(0).toLowerCase()){
-				return true 
+				var flag = true
+				for (var i = 0; i < item.length; i++){
+					if (item.charAt(i).toLowerCase() == item.charAt(i).toUpperCase()){
+					 	flag = false
+					}
+				}
+				if (flag){
+					console.log(item)
+					return true 
+				}
+				
 			}
 		}
 
@@ -185,13 +195,15 @@
   		if (document.getElementById("guess").value == document.getElementById("spank").name){
 			document.getElementById("wank").innerHTML = "You did it!";
   		}
-		document.getElementById("guess").value = " ";
+  		console.log(document.getElementById("guess").value)
+  		console.log(document.getElementById("spank").name)
+		document.getElementById("guess").value = "";
 	}
 
 	function testForm(){
 		var nameValue = document.getElementById("guess").value;
 		document.getElementById("wank").innerHTML = nameValue;
-		document.getElementById("guess").value = " ";
+		document.getElementById("guess").value = "";
 	}
 
 </script>
