@@ -4,8 +4,16 @@ document.getElementById( "myForm" ).addEventListener( "submit", function ( event
   	}
 );
 
+document.getElementById( "forfeit" ).addEventListener( "click", function ( event ) {
+    	event.preventDefault();
+    	JavaScript:forfeit();
+  	}
+);
+
 function check() {
+
 	var guess = document.getElementById("guess").value;
+
 	if (guess == document.getElementById("spank").name){
 		setGuidanceText("You did it! The answer was \"" + guess + ".\" We're generating a new question....")
 		setTimeout(loadNewGame, 3000)
@@ -24,6 +32,11 @@ function getWrongAnswerTextOptions() {
 		"Wrong!",
 		"Incorrect, loser."
 	];
+}
+
+function forfeit() {
+		setGuidanceText("The answer was \"" + document.getElementById("spank").name + ".\" We're generating a new question....")
+		setTimeout(loadNewGame, 3000)
 }
 
 function testForm() {
