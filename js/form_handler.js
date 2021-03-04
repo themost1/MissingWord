@@ -16,8 +16,8 @@ function check() {
 
 	if (guess == document.getElementById("spank").name){
 		setGuidanceText("You did it! The answer was \"" + guess + ".\" We're generating a new question....")
-		setTimeout(loadNewGame, 3000)
 		document.getElementById("guesses").innerHTML = ""
+		setTimeout(loadNewGame, 3000)
 	} else {
 		var candidates = getWrongAnswerTextOptions()
 		var rngNum = Math.floor(Math.random() * candidates.length)
