@@ -6,6 +6,7 @@
     
     </iframe>
 
+<p id="spank"></p>
 <p id="wank"></p>
 
 <script>
@@ -35,11 +36,38 @@
 			console.log(data.query.pages[i].title);
 		}
 
-		var outputInscope = data.query.pages[0].extract
+		var content = data.query.pages[0].extract;
+
+		processContent(content);
 
 	}
 	// Send request to the server asynchronously
 	xhr.send();
+
+
+	function processContent(content){
+		text = new String(content)
+		let validSentenceEnds = []
+
+		let spaced = text.split(" ")
+		for (var i = 0; i < spaced.length; i++) {
+			item = spaced[i]
+			if (item.charAt(item.length-1) == "."){
+				if (item.length > 3 || item.charAt(0) == item.charAt(0).toLowerCase() ){
+					validSentenceEnds[validSentenceEnds.length] = i
+					console.log(item)
+				}
+			}
+		}
+		//console.log(validSentenceEnds);
+
+		document.getElementById("spank").innerHTML = spaced[0];
+		//Removed the period
+
+
+	}
+
+
 </script>
 
 <form id = "myForm">
@@ -55,8 +83,8 @@
 
 	function check(){
 		var nameValue = document.getElementById("guess").value;
-		document.getElementById("wank").innerHTML = nameValue
-		document.getElementById("guess").value = " "
+		document.getElementById("wank").innerHTML = nameValue;
+		document.getElementById("guess").value = " ";
 	}
 
 </script>
