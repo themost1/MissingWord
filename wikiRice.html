@@ -59,9 +59,12 @@
 				}
 			}
 		}
-		//console.log(validSentenceEnds);
 
-		document.getElementById("spank").innerHTML = spaced[0];
+		let sentence = spaced[0]
+		for (var i = 1; i <= validSentenceEnds[0]; i++){
+			sentence = sentence + " " + spaced[i]
+		}
+		document.getElementById("spank").innerHTML = sentence;
 		//Removed the period
 
 
