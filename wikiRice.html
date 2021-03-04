@@ -82,8 +82,34 @@
 		}
 		document.getElementById("spank").innerHTML = passage;
 		return passage
+	} 
+
+	function possibleBlank(item){
+		if (item.indexOf("ing") > -1 || item.indexOf("ed") > -1 ){
+			if (item.charAt(0) == item.charAt(0).toLowerCase()){
+				return true 
+			}
+		}
+		return false
 	}
 
+	function getPossibleBlanks (spaced, ends) {
+
+		var possibleBlanks = []
+
+		for (var k = 0; k < spaced.length; k++) {
+			if (possibleBlank(item)) {
+				possibleBlanks[possibleBlanks.length] = item
+			}
+		}
+
+		return possibleBlanks
+	}
+
+	function chooseBlank() {
+		var candidates = getPossibleBlanks
+		
+	}
 
 </script>
 
