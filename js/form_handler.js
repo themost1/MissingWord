@@ -38,6 +38,7 @@ function getWrongAnswerTextOptions() {
 
 function forfeit() {
 		setGuidanceText("The answer was \"" + document.getElementById("spank").name + ".\" We're generating a new question....")
+		document.getElementById("guesses").innerHTML = ""
 		setTimeout(loadNewGame, 3000)
 }
 
