@@ -55,12 +55,13 @@
 			if (item.charAt(item.length-1) == "."){
 				if (item.length > 3 || item.charAt(0) == item.charAt(0).toLowerCase() ){
 					validSentenceEnds[validSentenceEnds.length] = i
-					console.log(item)
+					//console.log(item)
 				}
 			}
 		}
 
 		getSentenceByIndex(spaced, validSentenceEnds, 3)
+		console.log(chooseBlank(spaced, validSentenceEnds))
 
 
 	}
@@ -98,18 +99,21 @@
 		var possibleBlanks = []
 
 		for (var k = 0; k < spaced.length; k++) {
-			if (possibleBlank(item)) {
-				possibleBlanks[possibleBlanks.length] = item
+			if (possibleBlank(spaced[k])) {
+				possibleBlanks[possibleBlanks.length] = spaced[k]
 			}
 		}
 
 		return possibleBlanks
 	}
 
-	function chooseBlank() {
-		var candidates = getPossibleBlanks
-		
+	function chooseBlank(spaced, ends) {
+		var candidates = getPossibleBlanks(spaced, ends)
+		var rngNum = Math.floor(Math.random()*candidates.length)
+		return [candidates[rngNum], rngNum]
 	}
+
+
 
 </script>
 
