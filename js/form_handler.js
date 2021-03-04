@@ -16,11 +16,13 @@ function check() {
 
 	if (guess == document.getElementById("spank").name){
 		setGuidanceText("You did it! The answer was \"" + guess + ".\" We're generating a new question....")
+		document.getElementById("guesses").innerHTML = ""
 		setTimeout(loadNewGame, 3000)
 	} else {
 		var candidates = getWrongAnswerTextOptions()
 		var rngNum = Math.floor(Math.random() * candidates.length)
 		document.getElementById("guidance_text").innerHTML = "You guessed \"" + guess + ".\" " + candidates[rngNum];
+		document.getElementById("guesses").innerHTML = document.getElementById("guesses").innerHTML + guess + "<p></p>"
 	}
 
 	document.getElementById("guess").value = "";
