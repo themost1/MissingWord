@@ -20,9 +20,13 @@ function getThatPage(title){
 	//Create a new object to interact with the server
 	var xhr = new XMLHttpRequest();
 
-	//This extracts text, is a WIP... currently grabs the first-ish 1200 chars in plain text. Not sure how to grab later
-
-	var urlBase = "https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&formatversion=2&excharacters=1200&exlimit=50&explaintext=1&titles="
+	var charsToGet = 1200;
+	var exLimit = "max";
+	var urlBase = "https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&formatversion=2&excharacters="
+		+ charsToGet.toString()
+		+ "&exlimit="
+		+ exLimit.toString()
+		+ "&explaintext=1&titles="
 
 
 
