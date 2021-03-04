@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
+<title>WikiBlanks</title>
 <body id="bod">
 
-<iframe src="https://wikipedia.org/wiki/Special:Random" height = 1000 width = 1000>
+<iframe src="https://wikipedia.org/wiki/Special:Random" height = 0 width = 0>
     
     </iframe>
 
@@ -45,6 +46,65 @@
 	xhr.send();
 
 
+	function processContent(content){
+		text = new String(content)
+		var spaced = text.split(" ")
+		for (var i = 0; i < spaced.length; i++){
+			if (spaced[i].indexOf("\n") > -1 ){
+				// BREAK STRING into two parts
+				console.log("escape char found")
+			}
+		}
+		var ends = getEnds(spaced)
+		var data = generateWikiBlank(spaced,ends)
+		document.getElementById("spank").innerHTML = data[0];
+		document.getElementById("spank").name = data[1]
+
+	}
+
+	function generateWikiBlank(spaced, ends){
+		var blankId = chooseBlank(spaced, ends)
+		var answer = spaced[blankId]
+		console.log(answer)
+		var question = ""
+		var passage = ""
+		
+		var nextEnd = 0
+		var flag = true
+		for (var i = 0; i < ends.length; i++){
+			if (ends[i] > blankId && flag){
+				nextEnd = i // this is reset to ends[i] after lastEnd is set
+				flag = false
+			}
+		}
+
+		var lastEnd
+		if (nextEnd == 0) {
+			lastEnd = -1
+		} else {
+			lastEnd = ends[nextEnd-1]
+		}
+		nextEnd = ends[nextEnd]
+
+		console.log(lastEnd)
+		console.log(blankId)
+		console.log(nextEnd)
+
+		for (var i = lastEnd+1; i <= nextEnd; i++){
+			if (i == blankId){
+				question = question + " " + "____"
+			} else {
+				question = question + " " + spaced[i]
+			}
+			passage = passage + " " + spaced[i]
+
+		}
+
+
+		return [question, answer, passage]
+
+	}
+
 	function getEnds(spaced){
 	
 		let ends = []
@@ -61,21 +121,7 @@
 
 	}
 
-	function processContent(content){
-		text = new String(content)
-		var spaced = text.split(" ")
-		for (var i = 0; i < spaced.length; i++){
-			if (spaced[i].indexOf("\n") > -1 ){
-				// BREAK STRING into two parts
-				console.log("escape char found")
-			}
-		}
-		var ends = getEnds(spaced)
-		var data = generateWikiBlank(spaced,ends)
-		document.getElementById("spank").innerHTML = data[0];
-		document.getElementById("spank").name = data[1]
 
-	}
 
 	function getSentenceByIndex(spaced, ends, index){
 
@@ -138,49 +184,6 @@
 		return candidates[rngNum]
 	}
 
-
-	function generateWikiBlank(spaced, ends){
-		var blankId = chooseBlank(spaced, ends)
-		var answer = spaced[blankId]
-		console.log(answer)
-		var question = ""
-		var passage = ""
-		
-		var nextEnd = 0
-		var flag = true
-		for (var i = 0; i < ends.length; i++){
-			if (ends[i] > blankId && flag){
-				nextEnd = i // this is reset to ends[i] after lastEnd is set
-				flag = false
-			}
-		}
-
-		var lastEnd
-		if (nextEnd == 0) {
-			lastEnd = -1
-		} else {
-			lastEnd = ends[nextEnd-1]
-		}
-		nextEnd = ends[nextEnd]
-
-		console.log(lastEnd)
-		console.log(blankId)
-		console.log(nextEnd)
-
-		for (var i = lastEnd+1; i <= nextEnd; i++){
-			if (i == blankId){
-				question = question + " " + "____"
-			} else {
-				question = question + " " + spaced[i]
-			}
-			passage = passage + " " + spaced[i]
-
-		}
-
-
-		return [question, answer, passage]
-
-	}
 
 
 
