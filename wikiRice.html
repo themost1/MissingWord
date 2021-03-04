@@ -60,14 +60,28 @@
 			}
 		}
 
-		let sentence = spaced[0]
-		for (var i = 1; i <= validSentenceEnds[0]; i++){
-			sentence = sentence + " " + spaced[i]
+		getSentenceByIndex(spaced, validSentenceEnds, 3)
+
+
+	}
+
+	function getSentenceByIndex(spaced, ends, index){
+
+
+		var start = 0
+		if (index > 0){
+			start = ends[index-1]+1
+		} else {
+			start = 0 
 		}
-		document.getElementById("spank").innerHTML = sentence;
+		
+
+		let passage = spaced[start]
+		for (var i = start+1; i <= ends[index]; i++){
+			passage = passage + " " + spaced[i]
+		}
+		document.getElementById("spank").innerHTML = passage;
 		//Removed the period
-
-
 	}
 
 
