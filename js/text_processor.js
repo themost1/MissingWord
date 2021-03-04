@@ -58,6 +58,7 @@ function processContent(content) {
 	var data = generateWikiBlank(spaced, ends)
 	document.getElementById("spank").innerHTML = data[0];
 	document.getElementById("spank").name = data[1]
+	console.log("Correct answer is: " + data[1])
 	
 	setGuidanceText("Answer the question to send tendies to those in need.")
 }
