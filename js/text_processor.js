@@ -12,13 +12,13 @@ function loadNewGame() {
 		}
 		temp = new String(temp)
 		temp = new String(temp.replaceAll(' ','_'))
-		getThatPage(temp)
+		useThatPage(temp)
 
 	}
 	xhr.send()
 }
 
-function getThatPage(title) {
+function useThatPage(title) {
 	//Create a new object to interact with the server
 	var xhr = new XMLHttpRequest();
 
