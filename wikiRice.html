@@ -3,9 +3,6 @@
 <title>WikiBlanks</title>
 <body id="bod">
 
-<iframe src="https://wikipedia.org/wiki/Special:Random" height = 0 width = 0>
-    
-    </iframe>
 
 <p id="spank"></p>
 <p id="wank"></p>
@@ -27,6 +24,8 @@
 		temp = new String(temp)
 		temp = new String(temp.replaceAll(' ','_'))
 		getThatPage(temp);
+
+		document.getElementById("wank").name = temp
 
 	}
 	xhr.send();
@@ -231,6 +230,8 @@
   	function check(){
   		if (document.getElementById("guess").value == document.getElementById("spank").name){
 			document.getElementById("wank").innerHTML = "You did it!";
+			document.getElementById("wank").innerHTML = "<iframe src=\"" + "https://wikipedia.org/wiki/" + document.getElementById("wank").name + "\" height = 700 width = 700> </iframe>"
+
   		}
   		console.log(document.getElementById("guess").value)
   		console.log(document.getElementById("spank").name)
