@@ -125,8 +125,9 @@
 
 	function generateWikiBlank(spaced, ends){
 		var blankId = chooseBlank(spaced, ends)
-		var blankWord = spaced[blankId]
-		console.log(blankWord)
+		var answer = spaced[blankId]
+		console.log(answer)
+		var question = ""
 		var passage = ""
 		
 		var nextEnd = 0
@@ -152,16 +153,16 @@
 
 		for (var i = lastEnd+1; i <= nextEnd; i++){
 			if (i == blankId){
-				passage = passage + " " + "____"
+				question = question + " " + "____"
 			} else {
-				passage = passage + " " + spaced[i]
+				question = question + " " + spaced[i]
 			}
+			passage = passage + " " + spaced[i]
+
 		}
 
 
-		//console.log(passage);
-		//console.log(blankWord)
-		return [passage, blankWord]
+		return [question, answer, passage]
 
 	}
 
