@@ -10,51 +10,79 @@
 <p id="spank"></p>
 <p id="wank"></p>
 
-<script>
-	//Create a new object to interact with the server
+
+<script id = "randomPageRetrieval">
+
 	var xhr = new XMLHttpRequest();
+	var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=random&prop=revisions&rvprop=title&rvslots=main";
 
-	//This extracts text, is a WIP... currently grabs the first-ish 1200 chars in plain text. Not sure how to grab later
-	var url = "https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&titles=Animal&formatversion=2&excharacters=1200&exlimit=50&explaintext=1"
+	var url = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&generator=random&grnnamespace=0&prop=revisions%7Cimages&rvprop=title&grnlimit=10"
 
-	// Provide 3 arguments (GET/POST, The URL, Async True/False)
-	xhr.open('GET', url, true);
-
-	// Once request has loaded...
-	xhr.onload = function() {
-		// Parse the request into JSON
+	xhr.open('GET',url,true)
+	xhr.onload = function(){
 		var data = JSON.parse(this.response);
-
-					// Log the data object
-		console.log(data);
-
-		// Log the page objects
-		console.log(data.query.pages[0].extract)
-
-		// Loop through the data object
-		// Pulling out the titles of each page
-		for (var i in data.query.pages) {
-			console.log(data.query.pages[i].title);
+		for (var key in data.query.pages) {
+  			temp = data.query.pages[key].title
 		}
-
-		var content = data.query.pages[0].extract;
-
-		processContent(content);
+		temp = new String(temp)
+		temp = new String(temp.replaceAll(' ','_'))
+		getThatPage(temp);
 
 	}
-	// Send request to the server asynchronously
 	xhr.send();
 
+	function getThatPage(title){
+		//Create a new object to interact with the server
+		var xhr = new XMLHttpRequest();
+
+		//This extracts text, is a WIP... currently grabs the first-ish 1200 chars in plain text. Not sure how to grab later
+
+		var urlBase = "https://en.wikipedia.org/w/api.php?origin=*&action=query&format=json&prop=extracts&formatversion=2&excharacters=1200&exlimit=50&explaintext=1&titles="
+
+
+
+		var url = urlBase+title
+
+		// Provide 3 arguments (GET/POST, The URL, Async True/False)
+		xhr.open('GET', url, true);
+
+		// Once request has loaded...
+		xhr.onload = function() {
+			// Parse the request into JSON
+			var data = JSON.parse(this.response);
+
+						// Log the data object
+			//console.log(data);
+
+			// Log the page objects
+			console.log(data.query.pages[0].extract)
+
+			// Loop through the data object
+			// Pulling out the titles of each page
+			for (var i in data.query.pages) {
+				console.log(data.query.pages[i].title);
+			}
+
+			var content = data.query.pages[0].extract;
+
+			processContent(content);
+
+		}
+		// Send request to the server asynchronously
+		xhr.send();
+	}
 
 	function processContent(content){
 		text = new String(content)
+
+		//Not Internt Explorer compatible
+		text = new String(text.replaceAll('\n', ' <p></p> ')) 
+		console.log("First linebreak index")
+		console.log(text.indexOf('\n'))
+		console.log(text)
+		//End incompatible segment
+
 		var spaced = text.split(" ")
-		for (var i = 0; i < spaced.length; i++){
-			if (spaced[i].indexOf("\n") > -1 ){
-				// BREAK STRING into two parts
-				console.log("escape char found")
-			}
-		}
 		var ends = getEnds(spaced)
 		var data = generateWikiBlank(spaced,ends)
 		document.getElementById("spank").innerHTML = data[0];
@@ -69,14 +97,14 @@
 		var question = ""
 		var passage = ""
 		
-		var nextEnd = 0
+		var nextEnd = -404
 		var flag = true
 		for (var i = 0; i < ends.length; i++){
 			if (ends[i] > blankId && flag){
 				nextEnd = i // this is reset to ends[i] after lastEnd is set
 				flag = false
 			}
-		}
+		} // soemtimes, somehow, next end is not found.
 
 		var lastEnd
 		if (nextEnd == 0) {
@@ -152,7 +180,7 @@
 					}
 				}
 				if (flag){
-					console.log(item)
+					//console.log(item)
 					return true 
 				}
 				
