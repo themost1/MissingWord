@@ -28,10 +28,8 @@ function getThatPage(title){
 		+ exLimit.toString()
 		+ "&explaintext=1&titles="
 
-
-
-	var url = urlBase+title
-
+	var url = urlBase + title
+ 
 	// Provide 3 arguments (GET/POST, The URL, Async True/False)
 	xhr.open('GET', url, true);
 
@@ -39,23 +37,8 @@ function getThatPage(title){
 	xhr.onload = function() {
 		// Parse the request into JSON
 		var data = JSON.parse(this.response);
-
-					// Log the data object
-		//console.log(data);
-
-		// Log the page objects
-		console.log(data.query.pages[0].extract)
-
-		// Loop through the data object
-		// Pulling out the titles of each page
-		for (var i in data.query.pages) {
-			console.log(data.query.pages[i].title);
-		}
-
 		var content = data.query.pages[0].extract;
-
 		processContent(content);
-
 	}
 	// Send request to the server asynchronously
 	xhr.send();
@@ -64,19 +47,15 @@ function getThatPage(title){
 function processContent(content){
 	text = new String(content)
 
-	//Not Internt Explorer compatible
+	// Not Internet Explorer compatible
 	text = new String(text.replaceAll('\n', ' <p></p> ')) 
-	console.log("First linebreak index")
-	console.log(text.indexOf('\n'))
-	console.log(text)
-	//End incompatible segment
+	// End incompatible segment
 
 	var spaced = text.split(" ")
 	var ends = getEnds(spaced)
-	var data = generateWikiBlank(spaced,ends)
+	var data = generateWikiBlank(spaced, ends)
 	document.getElementById("spank").innerHTML = data[0];
 	document.getElementById("spank").name = data[1]
-
 }
 
 function generateWikiBlank(spaced, ends){
@@ -117,13 +96,10 @@ function generateWikiBlank(spaced, ends){
 
 	}
 
-
 	return [question, answer, passage]
-
 }
 
 function getEnds(spaced){
-
 	let ends = []
 
 	for (var i = 0; i < spaced.length; i++) {
@@ -135,14 +111,9 @@ function getEnds(spaced){
 		}
 	}
 	return ends
-
 }
 
-
-
 function getSentenceByIndex(spaced, ends, index){
-
-
 	var start = 0
 	if (index > 0){
 		start = ends[index-1]+1
@@ -150,7 +121,6 @@ function getSentenceByIndex(spaced, ends, index){
 		start = 0 
 	}
 	
-
 	let passage = spaced[start]
 	for (var i = start+1; i <= ends[index]; i++){
 		passage = passage + " " + spaced[i]
@@ -169,19 +139,17 @@ function possibleBlank(item){
 				}
 			}
 			if (flag){
-				//console.log(item)
 				return true 
 			}
 			
 		}
 	}
 
-	//NEEDS TO TRIM PUNCTUATION\
+	//NEEDS TO TRIM PUNCTUATION
 	return false
 }
 
 function getPossibleBlanks (spaced, ends) {
-
 	var possibleBlanks = []
 
 	for (var k = 0; k < spaced.length; k++) {
@@ -197,6 +165,5 @@ function chooseBlank(spaced, ends) {
 	var candidates = getPossibleBlanks(spaced, ends)
 	var rngNum = Math.floor(Math.random()*candidates.length)
 
-	//
 	return candidates[rngNum]
 }
