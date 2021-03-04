@@ -1,12 +1,14 @@
 document.getElementById( "myForm" ).addEventListener( "submit", function ( event ) {
     	event.preventDefault();
     	JavaScript:check();
-  	} );
+  	}
+);
 
 function check() {
 	var guess = document.getElementById("guess").value;
 	if (guess == document.getElementById("spank").name){
-		document.getElementById("guidance_text").innerHTML = "You did it! The answer was \"" + guess + ".\"";
+		setGuidanceText("You did it! The answer was \"" + guess + ".\" We're generating a new question....")
+		setTimeout(loadNewGame, 3000)
 	} else {
 		var candidates = getWrongAnswerTextOptions()
 		var rngNum = Math.floor(Math.random() * candidates.length)

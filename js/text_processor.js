@@ -1,20 +1,22 @@
-var xhr = new XMLHttpRequest();
-var url = "https://en.wikipedia.org/w/api.php?action=query&origin=*&format=json&generator=random&prop=revisions&rvprop=title&rvslots=main";
+loadNewGame()
 
-var url = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&generator=random&grnnamespace=0&prop=revisions%7Cimages&rvprop=title&grnlimit=10"
+function loadNewGame() {
+	var xhr = new XMLHttpRequest();
+	var url = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&generator=random&grnnamespace=0&prop=revisions%7Cimages&rvprop=title&grnlimit=10"
 
-xhr.open('GET',url,true)
-xhr.onload = function() {
-	var data = JSON.parse(this.response);
-	for (var key in data.query.pages) {
-		temp = data.query.pages[key].title
+	xhr.open('GET',url,true)
+	xhr.onload = function() {
+		var data = JSON.parse(this.response);
+		for (var key in data.query.pages) {
+			temp = data.query.pages[key].title
+		}
+		temp = new String(temp)
+		temp = new String(temp.replaceAll(' ','_'))
+		getThatPage(temp)
+
 	}
-	temp = new String(temp)
-	temp = new String(temp.replaceAll(' ','_'))
-	getThatPage(temp);
-
+	xhr.send()
 }
-xhr.send();
 
 function getThatPage(title) {
 	//Create a new object to interact with the server
@@ -56,12 +58,13 @@ function processContent(content) {
 	var data = generateWikiBlank(spaced, ends)
 	document.getElementById("spank").innerHTML = data[0];
 	document.getElementById("spank").name = data[1]
+	
+	setGuidanceText("Answer the question to send tendies to those in need.")
 }
 
 function generateWikiBlank(spaced, ends) {
 	var blankId = chooseBlank(spaced, ends)
 	var answer = spaced[blankId]
-	console.log(answer)
 	var question = ""
 	var passage = ""
 	
@@ -72,7 +75,7 @@ function generateWikiBlank(spaced, ends) {
 			nextEnd = i // this is reset to ends[i] after lastEnd is set
 			flag = false
 		}
-	} // soemtimes, somehow, next end is not found.
+	} // sometimes, somehow, next end is not found.
 
 	var lastEnd
 	if (nextEnd == 0) {
