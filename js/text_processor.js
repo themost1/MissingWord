@@ -14,7 +14,6 @@ function loadNewGame() {
 		temp = new String(temp.replaceAll(' ','_'))
 		console.log(temp)
 		useThatPage(temp)
-
 	}
 	xhr.send()
 }
