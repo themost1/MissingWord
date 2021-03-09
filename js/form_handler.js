@@ -53,11 +53,14 @@ function check() {
 			info = true;
 
 		} 
-
+		var flag = 0
 		for (var i = 0; i < guess.length; i++){
 			if (answer.indexOf(guess.substring(i,i+1)) > -1 && letters.indexOf(guess.substring(i,i+1)) == -1){
 				letters = letters+guess.substring(i,i+1)
-				i = guess.length
+				flag = flag + 1
+				if (flag == 2) {
+					i = guess.length
+				}
 			}
 		}
 
@@ -73,7 +76,7 @@ function check() {
 
 		}
 		document.getElementById("guesses").innerHTML = guess + "<p></p>" + document.getElementById("guesses").innerHTML;
-		document.getElementById("hints").innerHTML = "Begins with " + hints[0] + " Ends with "  + hints[1] + ". You've found the letters: " + letters + ". (Max one per entry)";
+		document.getElementById("hints").innerHTML = "Begins with " + hints[0] + " Ends with "  + hints[1] + ". You've found the letters: " + letters + ". (Max two per entry)";
 	}
 
 
