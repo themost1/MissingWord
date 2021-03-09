@@ -1,5 +1,6 @@
 var hintsInitial = ["??", "??"]
 var hints = hintsInitial
+var letters = ""
 
 document.getElementById( "myForm" ).addEventListener( "submit", function ( event ) {
     	event.preventDefault();
@@ -18,6 +19,7 @@ function check() {
 	var guess = document.getElementById("guess").value;
 	var answer = document.getElementById("spank").name;
 
+
 	if (guess == answer){
 
 		//This will at least notify the player they were correct.
@@ -25,7 +27,9 @@ function check() {
 
 		setGuidanceText("You did it! The answer was \"" + guess + ".\" We're generating a new question....");
 		document.getElementById("guesses").innerHTML = "";
+		document.getElementById("hints").innerHTML = ""
 		hints = hintsInitial
+		letters = ""
 		setTimeout(loadNewGame, 3000)
 	} else {
 
@@ -50,6 +54,13 @@ function check() {
 
 		} 
 
+		for (var i = 0; i < guess.length; i++){
+			if (answer.indexOf(guess.substring(i,i+1)) > -1 && letters.indexOf(guess.substring(i,i+1)) == -1){
+				letters = letters+guess.substring(i,i+1)
+				i = guess.length
+			}
+		}
+
 		if (info) {
 
 				document.getElementById("guidance_text").innerHTML = message;
@@ -62,8 +73,7 @@ function check() {
 
 		}
 		document.getElementById("guesses").innerHTML = guess + "<p></p>" + document.getElementById("guesses").innerHTML;
-
-		document.getElementById("hints").innerHTML = "Begins with " + hints[0] + " Ends with "  + hints[1] + ".";
+		document.getElementById("hints").innerHTML = "Begins with " + hints[0] + " Ends with "  + hints[1] + ". You've found the letters: " + letters + ". (Max one per entry)";
 	}
 
 
