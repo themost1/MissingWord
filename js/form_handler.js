@@ -13,15 +13,21 @@ document.getElementById( "forfeit" ).addEventListener( "click", function ( event
 function check() {
 
 	var guess = document.getElementById("guess").value;
+	var answer = document.getElementById("spank").name
 
-	if (guess == document.getElementById("spank").name){
+	if (guess == answer){
 		setGuidanceText("You did it! The answer was \"" + guess + ".\" We're generating a new question....")
 		document.getElementById("guesses").innerHTML = ""
 		setTimeout(loadNewGame, 3000)
 	} else {
+
+		if (guess.substring(guess.length -2) == answer.substring(answer.length -2)){
+			document.getElementById("guidance_text").innerHTML = "You guessed \"" + guess + ".\" " + "The last two letters are right!"
+		} else {
 		var candidates = getWrongAnswerTextOptions()
 		var rngNum = Math.floor(Math.random() * candidates.length)
 		document.getElementById("guidance_text").innerHTML = "You guessed \"" + guess + ".\" " + candidates[rngNum];
+		}
 		document.getElementById("guesses").innerHTML = guess + "<p></p>" + document.getElementById("guesses").innerHTML
 	}
 
