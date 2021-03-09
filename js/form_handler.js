@@ -1,3 +1,6 @@
+var hintsInitial = ["??", "??"]
+var hints = hintsInitial
+
 document.getElementById( "myForm" ).addEventListener( "submit", function ( event ) {
     	event.preventDefault();
     	JavaScript:check();
@@ -13,31 +16,60 @@ document.getElementById( "forfeit" ).addEventListener( "click", function ( event
 function check() {
 
 	var guess = document.getElementById("guess").value;
-	var answer = document.getElementById("spank").name
+	var answer = document.getElementById("spank").name;
 
 	if (guess == answer){
 
 		//This will at least notify the player they were correct.
 
 
-		setGuidanceText("You did it! The answer was \"" + guess + ".\" We're generating a new question....")
-		document.getElementById("guesses").innerHTML = ""
+		setGuidanceText("You did it! The answer was \"" + guess + ".\" We're generating a new question....");
+		document.getElementById("guesses").innerHTML = "";
+		hints = hintsInitial
 		setTimeout(loadNewGame, 3000)
 	} else {
 
 		//This will check to see if you earned any information, then post your guess to the page. 
 
+		var info = false;
+		var message = "You guessed \"" + guess + ".\" ";
+		var hint = ""
+
+		if (guess.substring(0, 2) == answer.substring(0, 2)){
+			
+			message = message + "The first two letters are right!";
+			hints[0] = answer.substring(0, 2);
+			info = true;
+		} 
+
 		if (guess.substring(guess.length -2) == answer.substring(answer.length -2)){
-			document.getElementById("guidance_text").innerHTML = "You guessed \"" + guess + ".\" " + "The last two letters are right!"
+
+			message = message + "The last two letters are right!";
+			hints[1] = answer.substring(answer.length -2);
+			info = true;
+
+		} 
+
+		if (info) {
+
+				document.getElementById("guidance_text").innerHTML = message;
+		
 		} else {
-		var candidates = getWrongAnswerTextOptions()
-		var rngNum = Math.floor(Math.random() * candidates.length)
-		document.getElementById("guidance_text").innerHTML = "You guessed \"" + guess + ".\" " + candidates[rngNum];
+
+				var candidates = getWrongAnswerTextOptions()
+				var rngNum = Math.floor(Math.random() * candidates.length);
+				document.getElementById("guidance_text").innerHTML = "You guessed \"" + guess + ".\" " + candidates[rngNum];
+
 		}
-		document.getElementById("guesses").innerHTML = guess + "<p></p>" + document.getElementById("guesses").innerHTML
+		document.getElementById("guesses").innerHTML = guess + "<p></p>" + document.getElementById("guesses").innerHTML;
+
+		document.getElementById("hints").innerHTML = "Begins with " + hints[0] + " Ends with "  + hints[1] + ".";
 	}
 
+
 	document.getElementById("guess").value = "";
+
+
 }
 
 function forfeit() {
@@ -46,11 +78,21 @@ function forfeit() {
 		setTimeout(loadNewGame, 3000)
 }
 
+
+
+
+
+
+
+
+
+
+
 function getWrongAnswerTextOptions() {
 	return [
-		"Not quite....",
-		"Wrong!",
-		"Incorrect, loser."
+		"Incorrect.",
+		"Not right.",
+		"Unfortunately, no."
 	];
 }
 
