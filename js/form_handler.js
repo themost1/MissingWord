@@ -88,7 +88,17 @@ function check() {
 function forfeit() {
 		setGuidanceText("The answer was \"" + document.getElementById("spank").name + ".\" We're generating a new question....")
 		document.getElementById("guesses").innerHTML = ""
+		document.getElementById("hints").innerHTML = ""
+		hints = hintsInitial
+		letters = ""
 		setTimeout(loadNewGame, 3000)
+}
+
+function clearHTML() {
+		document.getElementById("guesses").innerHTML = ""
+		document.getElementById("hints").innerHTML = ""
+		hints = hintsInitial
+		letters = ""
 }
 
 
