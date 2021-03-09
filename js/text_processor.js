@@ -69,7 +69,7 @@ function tryThatContent(content) {
 	var ends = getEnds(spaced)
 	var data = generateWikiBlank(spaced, ends)
 
-	if (data == null || data[0] == null || data[1] == null) {
+	if (data == null || data[0] == "" || data[1] == null) {
 		tryAPage()
 	} else {
 		loadGame(data)
@@ -150,8 +150,6 @@ function getSentenceByIndex(spaced, ends, index) {
 function possibleBlank(item) {
 	if (item.charAt(0) == item.charAt(0).toLowerCase()){
 
-			if ((item.indexOf("ing") == item.length - 3 && item.length > 3)|| (item.indexOf("ed") == item.length-2 && item.length > 2) || (item.indexOf("ly") == item.length-2 && item.length > 2) || (item.indexOf("ous") == item.length-3 && item.length > 3)){
-		
 				var flag = true
 				for (var i = 0; i < item.length; i++){
 					if (item.charAt(i).toLowerCase() == item.charAt(i).toUpperCase()){
@@ -161,8 +159,12 @@ function possibleBlank(item) {
 				if (flag){
 					return true 
 				}
+
+			if ((item.indexOf("ing") == item.length - 3 && item.length > 3)|| (item.indexOf("ed") == item.length-2 && item.length > 2) || (item.indexOf("ly") == item.length-2 && item.length > 2) || (item.indexOf("ous") == item.length-3 && item.length > 3)){
+		
+				//Move coe back in here if needed
 			
-		}
+			}
 	}
 
 	//NEEDS TO TRIM PUNCTUATION
