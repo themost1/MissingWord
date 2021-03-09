@@ -1,5 +1,4 @@
-var hintsInitial = ["??", "??"]
-var hints = hintsInitial
+var hints = ["??", "??"]
 var letters = ""
 
 document.getElementById( "myForm" ).addEventListener( "submit", function ( event ) {
@@ -28,7 +27,7 @@ function check() {
 		setGuidanceText("You did it! The answer was \"" + guess + ".\" We're generating a new question....");
 		document.getElementById("guesses").innerHTML = "";
 		document.getElementById("hints").innerHTML = ""
-		hints = hintsInitial
+		hints = ["??", "??"]
 		letters = ""
 		setTimeout(loadNewGame, 3000)
 	} else {
@@ -89,7 +88,7 @@ function forfeit() {
 		setGuidanceText("The answer was \"" + document.getElementById("spank").name + ".\" We're generating a new question....")
 		document.getElementById("guesses").innerHTML = ""
 		document.getElementById("hints").innerHTML = ""
-		hints = hintsInitial
+		hints = ["??", "??"]
 		letters = ""
 		setTimeout(loadNewGame, 3000)
 }
@@ -97,7 +96,7 @@ function forfeit() {
 function clearHTML() {
 		document.getElementById("guesses").innerHTML = ""
 		document.getElementById("hints").innerHTML = ""
-		hints = hintsInitial
+		hints = ["??", "??"]
 		letters = ""
 }
 
