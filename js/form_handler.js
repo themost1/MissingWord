@@ -16,10 +16,16 @@ function check() {
 	var answer = document.getElementById("spank").name
 
 	if (guess == answer){
+
+		//This will at least notify the player they were correct.
+
+
 		setGuidanceText("You did it! The answer was \"" + guess + ".\" We're generating a new question....")
 		document.getElementById("guesses").innerHTML = ""
 		setTimeout(loadNewGame, 3000)
 	} else {
+
+		//This will check to see if you earned any information, then post your guess to the page. 
 
 		if (guess.substring(guess.length -2) == answer.substring(answer.length -2)){
 			document.getElementById("guidance_text").innerHTML = "You guessed \"" + guess + ".\" " + "The last two letters are right!"
@@ -34,6 +40,12 @@ function check() {
 	document.getElementById("guess").value = "";
 }
 
+function forfeit() {
+		setGuidanceText("The answer was \"" + document.getElementById("spank").name + ".\" We're generating a new question....")
+		document.getElementById("guesses").innerHTML = ""
+		setTimeout(loadNewGame, 3000)
+}
+
 function getWrongAnswerTextOptions() {
 	return [
 		"Not quite....",
@@ -42,11 +54,7 @@ function getWrongAnswerTextOptions() {
 	];
 }
 
-function forfeit() {
-		setGuidanceText("The answer was \"" + document.getElementById("spank").name + ".\" We're generating a new question....")
-		document.getElementById("guesses").innerHTML = ""
-		setTimeout(loadNewGame, 3000)
-}
+
 
 function testForm() {
 	var nameValue = document.getElementById("guess").value;

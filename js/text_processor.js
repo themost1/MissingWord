@@ -1,6 +1,18 @@
 loadNewGame()
 
 function loadNewGame() {
+	tryAPage()
+	//Succeeded -> loadGame
+	//Failed -> calls itself again
+}
+function loadGame(data) {
+	document.getElementById("spank").innerHTML = data[0];
+	document.getElementById("spank").name = data[1]
+	console.log("Correct answer is: " + data[1])
+	setGuidanceText("Answer the question to send tendies to those in need.")
+}
+
+function tryAPage() {
 	var xhr = new XMLHttpRequest();
 	var url = "https://en.wikipedia.org/w/api.php?origin=*&format=json&action=query&generator=random&grnnamespace=0&prop=revisions%7Cimages&rvprop=title&grnlimit=10"
 
@@ -13,12 +25,12 @@ function loadNewGame() {
 		temp = new String(temp)
 		temp = new String(temp.replaceAll(' ','_'))
 		console.log(temp)
-		useThatPage(temp)
+		tryThatPage(temp)
 	}
 	xhr.send()
 }
 
-function useThatPage(title) {
+function tryThatPage(title) {
 	//Create a new object to interact with the server
 	var xhr = new XMLHttpRequest();
 
@@ -40,13 +52,13 @@ function useThatPage(title) {
 		// Parse the request into JSON
 		var data = JSON.parse(this.response);
 		var content = data.query.pages[0].extract;
-		processContent(content);
+		tryThatContent(content);
 	}
 	// Send request to the server asynchronously
 	xhr.send();
 }
 
-function processContent(content) {
+function tryThatContent(content) {
 	text = new String(content)
 
 	// Not Internet Explorer compatible
@@ -56,11 +68,26 @@ function processContent(content) {
 	var spaced = text.split(" ")
 	var ends = getEnds(spaced)
 	var data = generateWikiBlank(spaced, ends)
-	document.getElementById("spank").innerHTML = data[0];
-	document.getElementById("spank").name = data[1]
-	console.log("Correct answer is: " + data[1])
-	
-	setGuidanceText("Answer the question to send tendies to those in need.")
+
+	if (data == null || data[0] == null || data[1] == null) {
+		tryAPage()
+	} else {
+		loadGame(data)
+	}
+}
+
+function getEnds(spaced) {
+	let ends = []
+
+	for (var i = 0; i < spaced.length; i++) {
+		item = spaced[i]
+		if (item.charAt(item.length-1) == "."){
+			if (item.length > 3 || item.charAt(0) == item.charAt(0).toLowerCase() ){
+				ends[ends.length] = i
+			}
+		}
+	}
+	return ends
 }
 
 function generateWikiBlank(spaced, ends) {
@@ -103,19 +130,6 @@ function generateWikiBlank(spaced, ends) {
 	return [question, answer, passage]
 }
 
-function getEnds(spaced) {
-	let ends = []
-
-	for (var i = 0; i < spaced.length; i++) {
-		item = spaced[i]
-		if (item.charAt(item.length-1) == "."){
-			if (item.length > 3 || item.charAt(0) == item.charAt(0).toLowerCase() ){
-				ends[ends.length] = i
-			}
-		}
-	}
-	return ends
-}
 
 function getSentenceByIndex(spaced, ends, index) {
 	var start = 0
