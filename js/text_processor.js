@@ -1,4 +1,5 @@
 loadNewGame()
+var cache = []
 
 function loadNewGame() {
 	tryAPage()
@@ -152,6 +153,9 @@ function getSentenceByIndex(spaced, ends, index) {
 } 
 
 function possibleBlank(item) {
+
+	if (item.length < 4) {return false}
+
 	if (item.charAt(0) == item.charAt(0).toLowerCase()){
 
 				var flag = true
@@ -173,6 +177,7 @@ function possibleBlank(item) {
 
 	//NEEDS TO TRIM PUNCTUATION
 	return false
+	
 }
 
 function getPossibleBlanks (spaced, ends) {
