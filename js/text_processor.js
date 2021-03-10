@@ -69,7 +69,7 @@ function tryThatContent(content) {
 	var ends = getEnds(spaced)
 	var data = generateWikiBlank(spaced, ends)
 
-	if (data == null || data[0] == "" || data[1] == null) {
+	if (data == null || data[0] == "" || data[1] == "") {
 		tryAPage()
 	} else {
 		loadGame(data)
@@ -92,6 +92,10 @@ function getEnds(spaced) {
 
 function generateWikiBlank(spaced, ends) {
 	var blankId = chooseBlank(spaced, ends)
+	if (blankId == null){
+		return null
+	}
+
 	var answer = spaced[blankId]
 	var question = ""
 	var passage = ""
@@ -185,6 +189,9 @@ function getPossibleBlanks (spaced, ends) {
 
 function chooseBlank(spaced, ends) {
 	var candidates = getPossibleBlanks(spaced, ends)
+	if (candidates.length == 0){
+		return null
+	}
 	var rngNum = Math.floor(Math.random() * candidates.length)
 
 	return candidates[rngNum]
