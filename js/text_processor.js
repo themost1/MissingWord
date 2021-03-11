@@ -1,5 +1,6 @@
 loadNewGame()
-var cache = []
+var cache = {} //list included fields later
+
 
 function loadNewGame() {
 	tryAPage()
@@ -10,7 +11,8 @@ function loadGame(data) {
 	document.getElementById("spank").innerHTML = data[0];
 	document.getElementById("spank").name = data[1]
 	console.log("Correct answer is: " + data[1])
-	setGuidanceText("Answer the question to send tendies to those in need.")
+	setGuidanceText("Answer the question.")
+	cache.currGame = data
 }
 
 function tryAPage() {
@@ -135,7 +137,6 @@ function generateWikiBlank(spaced, ends) {
 	return [question, answer, passage]
 }
 
-
 function getSentenceByIndex(spaced, ends, index) {
 	var start = 0
 	if (index > 0){
@@ -177,7 +178,7 @@ function possibleBlank(item) {
 
 	//NEEDS TO TRIM PUNCTUATION
 	return false
-	
+
 }
 
 function getPossibleBlanks (spaced, ends) {
