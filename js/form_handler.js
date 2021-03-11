@@ -30,7 +30,11 @@ function check() {
 		document.getElementById("hints").innerHTML = ""
 		hints = ["??", "??"]
 		letters = ""
-		setTimeout(loadNewGame, 3000)
+		if (cache.currentGame[7] == false) {
+			setTimeout(loadNewGame, 10000)
+		}
+		loadBlank(cache.currentGame)
+
 	} else {
 
 		//This will check to see if you earned any information, then post your guess to the page. 

@@ -12,7 +12,36 @@ function loadGame(data) {
 	document.getElementById("spank").name = data[1]
 	console.log("Correct answer is: " + data[1])
 	setGuidanceText("Answer the question.")
-	cache.currGame = data
+	cache.currentGame = data
+}
+
+function loadBlank(data) {
+
+	lastEnd = data[3]
+	nextEnd = data[4]
+	spaced =  data[5]
+	ends = data[6]
+	var question = ""
+	var answer = ""
+	var passage = ""
+
+		var blankId = chooseBlankByIndex(spaced, ends, lastEnd, nextEnd)
+		if (blankId == null){
+			return null
+		}
+
+		for (var i = lastEnd+1; i <= nextEnd; i++){
+			if (i == blankId){
+				question = question + " " + "____"
+			} else {
+				question = question + " " + spaced[i]
+			}
+			passage = passage + " " + spaced[i]
+		}
+		var answer = spaced[blankId]
+
+	loadGame([question, answer, passage, lastEnd, nextEnd, spaced, ends, true])
+		// needs to load, check for nulls / ""s
 }
 
 function tryAPage() {
@@ -27,7 +56,7 @@ function tryAPage() {
 		}
 		temp = new String(temp)
 		temp = new String(temp.replaceAll(' ','_'))
-		console.log(temp)
+		console.log("trying a page: " + temp)
 		tryThatPage(temp)
 	}
 	xhr.send()
@@ -55,6 +84,7 @@ function tryThatPage(title) {
 		// Parse the request into JSON
 		var data = JSON.parse(this.response);
 		var content = data.query.pages[0].extract;
+		console.log("trying that content: " + temp)
 		tryThatContent(content);
 	}
 	// Send request to the server asynchronously
@@ -71,13 +101,23 @@ function tryThatContent(content) {
 	var spaced = text.split(" ")
 	var ends = getEnds(spaced)
 	var data = generateWikiBlank(spaced, ends)
-
 	if (data == null || data[0] == "" || data[1] == "") {
 		tryAPage()
 	} else {
 		loadGame(data)
 	}
 }
+
+
+
+
+
+
+//Helper Functions
+
+
+
+
 
 function getEnds(spaced) {
 	let ends = []
@@ -134,7 +174,7 @@ function generateWikiBlank(spaced, ends) {
 
 	}
 
-	return [question, answer, passage]
+	return [question, answer, passage, lastEnd, nextEnd, spaced, ends, false]
 }
 
 function getSentenceByIndex(spaced, ends, index) {
@@ -171,7 +211,7 @@ function possibleBlank(item) {
 
 			if ((item.indexOf("ing") == item.length - 3 && item.length > 3)|| (item.indexOf("ed") == item.length-2 && item.length > 2) || (item.indexOf("ly") == item.length-2 && item.length > 2) || (item.indexOf("ous") == item.length-3 && item.length > 3)){
 		
-				//Move coe back in here if needed
+				//Move code back in here if needed
 			
 			}
 	}
@@ -192,9 +232,29 @@ function getPossibleBlanks (spaced, ends) {
 
 	return possibleBlanks // The index in spaced
 }
+function getPossibleBlanksByIndex (spaced, ends, index, endex) {
+	var possibleIndexes = []
+
+	for (var k = index; k <= endex && k < spaced.length; k++) {
+		if (possibleBlank(spaced[k])) {
+			possibleIndexes[possibleIndexes.length] = k
+		}
+	}
+
+	return possibleIndexes // The index in spaced
+}
 
 function chooseBlank(spaced, ends) {
 	var candidates = getPossibleBlanks(spaced, ends)
+	if (candidates.length == 0){
+		return null
+	}
+	var rngNum = Math.floor(Math.random() * candidates.length)
+
+	return candidates[rngNum]
+}
+function chooseBlankByIndex(spaced, ends, index, endex) {
+	var candidates = getPossibleBlanksByIndex(spaced, ends, index, endex)
 	if (candidates.length == 0){
 		return null
 	}
