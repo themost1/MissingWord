@@ -1,4 +1,4 @@
-startLoadGame()
+//startLoadGame()
 var games = []
 var titles = []
 
@@ -22,9 +22,9 @@ function finishLoadGame(data){
 	console.log("Correct answer is: " + data[1])
 	setGuidanceText("Answer the question.")
 
-	if (games.length < 3) {
-		startLoadGame()
-	}
+		if (games.length < 3) {
+			startLoadGame()
+		}
 }
 
 function startAddTitles(call) { //Sends request for 10 titles to Wikipedia API
