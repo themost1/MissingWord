@@ -16,13 +16,12 @@ document.getElementById( "forfeit" ).addEventListener( "click", function ( event
 
 function check() {
 
-	var trueGuess = document.getElementById("guess").value.replaceAll(" ", "")
-	var guess = document.getElementById("guess").value.toLowerCase().replaceAll(" ", ""); // guess is re
+	var guess = document.getElementById("guess").value
 	var answer = document.getElementById("spank").name;
+
 	console.log("guess: "+guess+" answer: " + answer)
 
-
-	if (guess == answer.toLowerCase()){
+	if (guess.toLowerCase() == answer.toLowerCase()){
 
 		//This will at least notify the player they were correct.
 
@@ -34,7 +33,7 @@ function check() {
 		letters = ""
 		var flag = (cache.currentGame[7] == false)
 		if (flag) {
-			setTimeout(loadNewGame, 10000)
+			setTimeout(loadNewGame, 8000)
 		}
 
 		loadBlank(cache.currentGame)
@@ -50,7 +49,7 @@ function check() {
 		//This will check to see if you earned any information, then post your guess to the page. 
 
 		var info = false;
-		var message = "You guessed \"" + trueGuess + ".\" ";
+		var message = "You guessed \"" + guess + ".\" ";
 		var hint = ""
 
 		if (guess.substring(0, 2) == answer.substring(0, 2)){
@@ -86,10 +85,10 @@ function check() {
 
 				var candidates = getWrongAnswerTextOptions()
 				var rngNum = Math.floor(Math.random() * candidates.length);
-				document.getElementById("guidance_text").innerHTML = "You guessed \"" + trueGuess + ".\" " + candidates[rngNum];
+				document.getElementById("guidance_text").innerHTML = "You guessed \"" + guess + ".\" " + candidates[rngNum];
 
 		}
-		document.getElementById("guesses").innerHTML = trueGuess + "<p></p>" + document.getElementById("guesses").innerHTML;
+		document.getElementById("guesses").innerHTML = guess + "<p></p>" + document.getElementById("guesses").innerHTML;
 		document.getElementById("hints").innerHTML = "Begins with " + hints[0] + " Ends with "  + hints[1] + ". You've found the letters: " + letters + ". (Max two per entry)";
 	}
 
@@ -105,7 +104,10 @@ function forfeit() {
 		document.getElementById("hints").innerHTML = ""
 		hints = ["??", "??"]
 		letters = ""
-		setTimeout(loadNewGame, 3000)
+		if (cache.currentGame[7] == false) {
+			setTimeout(loadNewGame, 3000)
+		} 
+			loadBlank(cache.currentGame);
 }
 
 function clearHTML() {
