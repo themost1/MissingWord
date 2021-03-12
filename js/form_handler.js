@@ -16,7 +16,7 @@ document.getElementById( "forfeit" ).addEventListener( "click", function ( event
 
 function check() {
 
-	var guess = document.getElementById("guess").value;
+	var guess = document.getElementById("guess").value.toLowerCase().replaceAll(" ", "");
 	var answer = document.getElementById("spank").name;
 
 
@@ -32,7 +32,7 @@ function check() {
 		letters = ""
 		var flag = (cache.currentGame[7] == false)
 		if (flag) {
-			setTimeout(loadNewGame, 10000)
+			setTimeout(loadNewGame, 4000)
 		}
 
 		loadBlank(cache.currentGame)
