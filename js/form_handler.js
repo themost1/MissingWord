@@ -88,7 +88,7 @@ function check() {
 
 		}
 		document.getElementById("guesses").innerHTML = guess + "<p></p>" + document.getElementById("guesses").innerHTML;
-		document.getElementById("hints").innerHTML = "Begins with " + hints[0] + " Ends with "  + hints[1]; //+ ". You've found the letters: " + letters + ". (Max two per entry)";
+		document.getElementById("hints").innerHTML = "Begins with " + hints[0] + " Ends with "  + hints[1] + ". You've found the letters: " + letters + ". (Max two per entry)";
 	}
 
 
