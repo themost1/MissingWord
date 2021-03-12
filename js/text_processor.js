@@ -235,6 +235,33 @@ function possibleBlank(item) {
 
 }
 
+function possibleBlankPropers(item) {
+
+	if (item == null) {return false}
+
+	if (item.length < 4) {return false}
+
+				var flag = true
+				for (var i = 1; i < item.length; i++){
+					if (item.charAt(i).toLowerCase() == item.charAt(i).toUpperCase()){
+						flag = false
+					}
+				}
+				if (flag){
+					return true 
+				}
+
+			if ((item.indexOf("ing") == item.length - 3 && item.length > 3)|| (item.indexOf("ed") == item.length-2 && item.length > 2) || (item.indexOf("ly") == item.length-2 && item.length > 2) || (item.indexOf("ous") == item.length-3 && item.length > 3)){
+		
+				//Move code back in here if needed
+			
+			}
+
+	//NEEDS TO TRIM PUNCTUATION
+	return false
+
+}
+
 function getPossibleBlanks (spaced, ends) {
 	var possibleBlanks = []
 
@@ -250,7 +277,7 @@ function getPossibleBlanksByIndex (spaced, ends, index, endex) {
 	var possibleIndexes = []
 
 	for (var k = index; k <= endex && k < spaced.length; k++) {
-		if (possibleBlank(spaced[k])) {
+		if (possibleBlankPropers(spaced[k])) {
 			possibleIndexes[possibleIndexes.length] = k
 		}
 	}
