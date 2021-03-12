@@ -30,10 +30,18 @@ function check() {
 		document.getElementById("hints").innerHTML = ""
 		hints = ["??", "??"]
 		letters = ""
-		if (cache.currentGame[7] == false) {
+		var flag = (cache.currentGame[7] == false)
+		if (flag) {
 			setTimeout(loadNewGame, 10000)
 		}
+
 		loadBlank(cache.currentGame)
+
+		if (flag) {
+			document.getElementById("bonusRound").innerHTML = "Here's a memory round while the next game loads.";
+		} else {
+			document.getElementById("bonusRound").innerHTML = "Here's another memory round!";
+		}
 
 	} else {
 

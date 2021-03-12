@@ -10,8 +10,20 @@ function loadNewGame() {
 function loadGame(data) {
 	document.getElementById("spank").innerHTML = data[0];
 	document.getElementById("spank").name = data[1]
+
+	document.getElementById("guess").value = "";
+	document.getElementById("hints").innerHTML = ""
+
+
 	console.log("Correct answer is: " + data[1])
-	setGuidanceText("Answer the question.")
+
+	if (data[7]) {
+		document.getElementById("bonusRound").innerHTML = "Bonus round!";
+	} else {
+		document.getElementById("bonusRound").innerHTML = "";
+		setGuidanceText("Answer the question.")
+	}
+	
 	cache.currentGame = data
 }
 
@@ -194,6 +206,8 @@ function getSentenceByIndex(spaced, ends, index) {
 } 
 
 function possibleBlank(item) {
+
+	if (item == null) {return false}
 
 	if (item.length < 4) {return false}
 
