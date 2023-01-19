@@ -1,3 +1,5 @@
+var XMLHttpRequest = require('xhr2');
+
 //startLoadGame()
 var games = []
 var titles = []
@@ -7,6 +9,7 @@ function startLoadGame(){
 		return startTryTitle(finishLoadGame,generateBlank)
 	});
 }
+
 function finishLoadGame(data){
 
 	console.log("finishedLoadingGame")
@@ -17,10 +20,10 @@ function finishLoadGame(data){
 	var game = games.shift() //Removes first element and returns it
 
 	data = game.coreData
-	document.getElementById("spank").innerHTML = data[0];
-	document.getElementById("spank").name = data[1]
-	console.log("Correct answer is: " + data[1])
-	setGuidanceText("Answer the question.")
+	//document.getElementById("spank").innerHTML = data[0];
+	//document.getElementById("spank").name = data[1]
+	// console.log("Correct answer is: " + data[1])
+	// setGuidanceText("Answer the question.")
 
 		if (games.length < 3) {
 			startLoadGame()
@@ -69,13 +72,15 @@ function startTryTitle(call, test) { //Tries title 1, removing it in the
 		+ exLimit.toString()
 		+ "&explaintext=1&titles="
 	var url = urlBase + title
-
+	/*
 	var xhr = new XMLHttpRequest();
 	xhr.open('GET', url, true);
+	console.log(this.response);
 	xhr.onload = function() {
 		return finishTryTitle(call, JSON.parse(this.response), test);
 	}
 	xhr.send();
+	*/
 }
 function finishTryTitle(call, data, test) {
 		console.log("finishingTryTitle")
@@ -152,3 +157,5 @@ function generateBlank(data) {
 function finishGettingPage() {
 	
 }
+
+module.exports = {startLoadGame}

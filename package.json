@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/themost1/MissingWord#readme",
   "dependencies": {
+    "html-to-text": "^9.0.3",
+    "request": "^2.88.2",
+    "wikijs": "^6.4.0",
     "xhr2": "^0.2.1"
   }
 }
