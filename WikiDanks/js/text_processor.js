@@ -13,6 +13,7 @@ function loadGame(data) {
 
 	document.getElementById("guess").value = "";
 	document.getElementById("hints").innerHTML = ""
+	document.getElementById("searchResult").innerHTML = ""
 
 
 	console.log("Correct answer is: " + data[1])

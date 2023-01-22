@@ -29,6 +29,7 @@ function check() {
 		setGuidanceText("You did it! The answer was \"" + answer + ".\" We're generating a new question....");
 		document.getElementById("guesses").innerHTML = "";
 		document.getElementById("hints").innerHTML = ""
+		document.getElementById("searchResult").innerHTML = ""
 		hints = ["??", "??"]
 		letters = ""
 		var flag = (cache.currentGame[7] == false)
@@ -45,6 +46,9 @@ function check() {
 		}
 
 	} else {
+
+		makeSearch(answer)
+
 
 		//This will check to see if you earned any information, then post your guess to the page. 
 
@@ -102,6 +106,7 @@ function forfeit() {
 		setGuidanceText("The answer was \"" + document.getElementById("spank").name + ".\" We're generating a new question....")
 		document.getElementById("guesses").innerHTML = ""
 		document.getElementById("hints").innerHTML = ""
+		document.getElementById("searchResult").innerHTML = ""
 		hints = ["??", "??"]
 		letters = ""
 		if (cache.currentGame[7] == false) {
@@ -113,6 +118,7 @@ function forfeit() {
 function clearHTML() {
 		document.getElementById("guesses").innerHTML = ""
 		document.getElementById("hints").innerHTML = ""
+		document.getElementById("searchResult").innerHTML = ""
 		hints = ["??", "??"]
 		letters = ""
 }

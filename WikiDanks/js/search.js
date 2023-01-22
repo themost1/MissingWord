@@ -35,8 +35,14 @@ function makeSearch(term) {
             var text =  cleanSnippet(response.query.search[0].snippet);
             var replace = new RegExp(term,"ig");
             console.log(replace);
-            document.getElementById("searchResult").innerHTML = text.replaceAll(replace,'___'); 
-          
+            
+            //Here we replace, then retry if the blank is not inserted.
+            var temp = text.replaceAll(replace,'___')
+            if (temp == text) {
+                makeSearch(term)
+            } else {
+             document.getElementById("searchResult").innerHTML = document.getElementById("searchResult").innerHTML + "<br> <b>Hint:</b> " + text.replaceAll(replace,'___') + "<br>"; 
+            }
         })
         .catch(function(error){console.log(error);});
 
@@ -49,4 +55,17 @@ function cleanSnippet(snippet){
         console.log("Text Content: " + div.textContent);
         return div.textContent || div.innerText || "";
 }
-makeSearch("hat");
+//makeSearch("hat");
+
+
+
+/*
+
+Example Results (For debugging)
+
+Cheese:
+Barley Mow The Beehive Carlton Tavern, Kilburn The Champion The Cheshire ___ The Clachan Coach and Horses, Hill Street Coach and Horses, Soho Coal Hole
+
+Humans:
+Policy of China and Japan; Bilateral Interaction between Belarus-China; human rights issues in contemporary international relations. Prannik Tatiana Alexandrovna
+*/
