@@ -2,7 +2,7 @@ var hints = ["??", "??"]
 var letters = ""
 var score = []
 var points = 0;
-var pointsAvailable = 10;
+var pointsAvailable = 64;
 
 document.getElementById( "myForm" ).addEventListener( "submit", function ( event ) {
     	event.preventDefault();
@@ -53,7 +53,7 @@ function check() {
 	} else {
 
 		if (pointsAvailable > 1){
-			pointsAvailable = pointsAvailable - 1;
+			pointsAvailable = pointsAvailable/2;
 		}
 		makeSearch(answer)
 
@@ -106,7 +106,7 @@ function check() {
 
 
 	document.getElementById("guess").value = "";
-	document.getElementById("points").innerHTML = "<b>Score:</b> " + points;
+	document.getElementById("points").innerHTML = "<b>Score:</b> " + points + "<i> ... Points Available: " + pointsAvailable +"</i>";
 
 }
 
@@ -121,8 +121,9 @@ function forfeit() {
 			setTimeout(loadNewGame, 3000)
 		} 
 			loadBlank(cache.currentGame);
-
-		pointsAvailable = 10;
+		points = points - 16;
+		pointsAvailable = 64;
+		document.getElementById("points").innerHTML = "<b>Score:</b> " + points + "<i> ... Points Available: " + pointsAvailable +"</i>";
 }
 
 function clearHTML() {
@@ -131,7 +132,8 @@ function clearHTML() {
 		document.getElementById("searchResult").innerHTML = ""
 		hints = ["??", "??"]
 		letters = ""
-		pointsAvailable = 10;
+		pointsAvailable = 64;
+		document.getElementById("points").innerHTML = "<b>Score:</b> " + points + "<i> ... Points Available: " + pointsAvailable +"</i>";
 }
 
 
