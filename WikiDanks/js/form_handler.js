@@ -106,7 +106,7 @@ function check() {
 
 
 	document.getElementById("guess").value = "";
-	document.getElementById("points").innerHTML = "<b>Score:</b> " + points + "<i> ... Points Available: " + pointsAvailable +"</i>";
+	//document.getElementById("points").innerHTML = "<b>Score:</b> " + points + "<i> ... Points Available: " + pointsAvailable +"</i>";
 
 }
 
@@ -122,8 +122,11 @@ function forfeit() {
 		} 
 			loadBlank(cache.currentGame);
 		points = points - 16;
+		//if (points < 0) {
+			//points = 0;
+		//}
 		pointsAvailable = 64;
-		document.getElementById("points").innerHTML = "<b>Score:</b> " + points + "<i> ... Points Available: " + pointsAvailable +"</i>";
+		//document.getElementById("points").innerHTML = "<b>Score:</b> " + points + "<i> ... Points Available: " + pointsAvailable +"</i>";
 }
 
 function clearHTML() {
@@ -133,7 +136,7 @@ function clearHTML() {
 		hints = ["??", "??"]
 		letters = ""
 		pointsAvailable = 64;
-		document.getElementById("points").innerHTML = "<b>Score:</b> " + points + "<i> ... Points Available: " + pointsAvailable +"</i>";
+		//document.getElementById("points").innerHTML = "<b>Score:</b> " + points + "<i> ... Points Available: " + pointsAvailable +"</i>";
 }
 
 
