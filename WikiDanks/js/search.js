@@ -31,17 +31,22 @@ function makeSearch(term) {
     fetch(url)
         .then(function(response){return response.json();})
         .then(function(response) {
+
             // Processing of response goes here
             var text =  cleanSnippet(response.query.search[0].snippet);
             var replace = new RegExp(term,"ig");
+            console.log("trimSnippet input: "+text);
+            text = trimSnippet(text);
+            console.log("trimSnippet output: "+text);
+            var temp = text.replaceAll(replace,'___')
             console.log(replace);
             
             //Here we replace, then retry if the blank is not inserted.
-            var temp = text.replaceAll(replace,'___')
+            
             if (temp == text) {
                 makeSearch(term)
             } else {
-             document.getElementById("searchResult").innerHTML = document.getElementById("searchResult").innerHTML + "<br> <b>Hint:</b> " + text.replaceAll(replace,'___') + "<br>"; 
+             document.getElementById("searchResult").innerHTML = document.getElementById("searchResult").innerHTML + "<br> <b>Hint:</b> " + temp+ "<br>"; 
             }
         })
         .catch(function(error){console.log(error);});
