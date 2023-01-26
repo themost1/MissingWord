@@ -11,7 +11,7 @@ function trimSnippet(snippet) {
 		if (temp >= 0) {
 			return snippet.substring(temp+2,snippet.length);
 		} else {
-			return null;
+			return "";
 		}
 	}
 }
